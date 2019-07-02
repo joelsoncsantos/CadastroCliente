@@ -117,7 +117,7 @@
             </div>
         </div>        
         <div class="form-group">
-            <button type="submit" class="btn btn-primary login-btn btn-block">Login</button>
+            <button type="button" class="btn btn-primary login-btn btn-block" onclick="validarLogin();" >Login</button>
         </div>
         <div class="clearfix">
             <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
@@ -162,9 +162,10 @@
 			
 			return dados;
 		}
+		
 		function validarLogin(){
-			
-			
+		//paramos aqui 01/07	
+			alert("Aqui");
 		var email = document.getElementById("email").value;
 			
 			var xhttp = new XMLHttpRequest();
@@ -178,6 +179,7 @@
 					//alert("Por favor, informe um E-MAIL válido 828");
 				if(msg == "true"){
 					//alert("Por favor, informe um E-MAIL válido 888");
+					
 					return false;
 				} else {
 					//alert("Por favor, informe um E-MAIL válido 9999999");
@@ -188,7 +190,7 @@
 								
 				}
 			};
-			xhttp.open("GET", "serveletEmail?"+dadosForm()+"&pesquisarEmail" , true);
+			xhttp.open("GET", "ServeletloginSenha?" + dadosForm(), true);
 			xhttp.send();
 			
 			
