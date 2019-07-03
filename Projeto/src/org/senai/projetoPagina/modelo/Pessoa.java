@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 import org.senai.projetoPagina.modelo.ConectarJDBC;
 
 public class Pessoa {
@@ -132,6 +133,33 @@ public class Pessoa {
 			return false;
 		}
 		
+		public boolean pesquisarSenha (String checarEmail, String senha) {
+			// TODO Auto-generated method stub
+			Connection conexao = new ConectarJDBC().getConectar();
+		
+			try {
+				
+				PreparedStatement ps = conexao.prepareStatement("Select * from emails where email=? and senha =?");
+				ps.setString(1,checarEmail);
+				ps.setString(2,senha);
+				
+				ResultSet rs = ps.executeQuery();
+				
+				if (rs.next()) {
+					// ja tem um email
+					return true;
+				}else {
+					// email nao encontrado
+					return false;
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+			return false;
+		}
 		//metodo apagar
 		public boolean apagar() {
 			Connection conexao = new ConectarJDBC().getConectar();
@@ -192,6 +220,38 @@ public class Pessoa {
 			}
 			
 			return false;
+		}
+		
+		
+		public Pessoa getPessoa(String email) {
+			try {
+				Connection conexao = new ConectarJDBC().getConectar();
+				PreparedStatement ps = conexao.prepareStatement("select nome_completo,email from emails where email =?");
+				ps.setString(1, email);
+				
+				ResultSet rs = ps.executeQuery();
+
+				
+				Pessoa p = new Pessoa();
+				while (rs.next()) {
+					
+					
+					p.setNome(rs.getString("nome_completo"));
+					p.setEmail(rs.getString("email"));
+					
+					
+
+				}
+				ps.close();
+				conexao.close();
+				return p;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+			}
+
+			return null;
 		}
 
 

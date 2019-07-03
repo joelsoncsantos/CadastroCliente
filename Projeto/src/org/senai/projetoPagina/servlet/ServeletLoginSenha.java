@@ -23,19 +23,31 @@ import org.senai.projetoPagina.modelo.Pessoa;
 /**
  * Servlet implementation class loginSenha
  */
-@WebServlet(name ="ServeletloginSenha",
+@WebServlet(name ="ServeletLoginSenha",
 urlPatterns = {"/serveletLoginSenha"})
 public class ServeletLoginSenha extends HttpServlet {
 	
 	public void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServerException, IOException {
 		Pessoa obj = new Pessoa();
-		
+		boolean sucesso = false;
 		PrintWriter saida = response.getWriter();
 		String checarEmail = request.getParameter("email");
 		String senha = request.getParameter("senha");
 		
-		Connection conexao = new ConectarJDBC().getConectar();
+		if(!checarEmail.equals("")) {
+			sucesso = obj.pesquisarSenha(checarEmail, senha);
+			//System.out.println(sucesso);
+			if(sucesso ) {
+				//System.out.println("usuario cadastrado");
+				saida.print("true");
+						
+			}
+			
+		}
+		
+		
+		/*Connection conexao = new ConectarJDBC().getConectar();
 		try {
 			
 			PreparedStatement ps = conexao.prepareStatement("Select email,senha from emails where email=?");
@@ -61,7 +73,7 @@ public class ServeletLoginSenha extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
-		}
+		}*/
 		
 	}
 }

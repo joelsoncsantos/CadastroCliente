@@ -58,10 +58,12 @@
 		</thead>
 		<tbody>
 		<%
+		String email = request.getParameter("email");
 		Pessoa p = new Pessoa();
+		p.getPessoa(email);
 		out.print("<tr>");
 		out.print("<td>"+p.getNome() +"</td>");
-		out.print("<td>"+p.getEmail() +"</td>");
+		out.print("<td>"+p.getEmail() +"</td>");		
 		out.print("</tr>");
 		%>
 		
@@ -71,9 +73,9 @@
 
 			<td>
 				<div id="msg"></div>
-
-				<button style="background: #48D1CC" type="button"
-					class="btn text-white">Deseja realmente excluir</button>
+				
+				<button style="background: red" type="button"
+					class="btn text-white">Deseja excluir</button>
 				<button style="background: #48D1CC" type="button"
 					class="btn text-white">Deseja editar</button>
 

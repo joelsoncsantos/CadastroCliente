@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import=" org.senai.projetoPagina.modelo.Pessoa" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -100,6 +101,15 @@
 <title>Login</title>
 </head>
 <body>
+<%
+Pessoa pessoa = new Pessoa();
+
+
+pessoa = pessoa.getPessoa(request.getParameter("email"));
+
+
+
+%>
 
 <div class="login-form">
     <form action="/examples/actions/confirmation.php" method="post">
@@ -107,21 +117,22 @@
         <div class="form-group">
         	<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" name="login" placeholder="Login/Email" required="required">				
+                <input type="text" class="form-control" name="email" placeholder="Login/Email" required="required" id="email" >				
             </div>
         </div>
 		<div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" name="senha" placeholder="Insira sua senha" required="required">				
+                <input type="password" class="form-control" name="senha" placeholder="Insira sua senha" required="required" id="senha">				
             </div>
         </div>        
         <div class="form-group">
             <button type="button" class="btn btn-primary login-btn btn-block" onclick="validarLogin();" >Login</button>
         </div>
         <div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-            <a href="#" class="pull-right">Forgot Password?</a>
+           
+            <a href="formulario.jsp" class="pull-right">Cadastre-se</a>
+            <div id="msg"></div>
         </div>
 		
     </form>
@@ -165,9 +176,10 @@
 		
 		function validarLogin(){
 		//paramos aqui 01/07	
-			alert("Aqui");
-		var email = document.getElementById("email").value;
-			
+		
+			var email = document.getElementById("email").value;
+			var senha = document.getElementById("senha").value;
+			//alert("Aqui");
 			var xhttp = new XMLHttpRequest();
 			
 			xhttp.onreadystatechange = function() {
@@ -179,24 +191,30 @@
 					//alert("Por favor, informe um E-MAIL válido 828");
 				if(msg == "true"){
 					//alert("Por favor, informe um E-MAIL válido 888");
+					//document.getElementById("msg").innerHTML = 'Email já cadastrado';
+					//document.getElementById("msg").style.color = "red";
+					window.location.replace('localizar.jsp?email='+email);
 					
 					return false;
 				} else {
 					//alert("Por favor, informe um E-MAIL válido 9999999");
-						document.getElementById("alert-email").innerHTML = '';
+						//window.location.replace('index.jsp');
+						document.getElementById("msg").innerHTML = 'Email ou senha incorreta!';
+						document.getElementById("msg").style.color = "red";
+						
 						return true;
 					}
 				
 								
 				}
-			};
-			xhttp.open("GET", "ServeletloginSenha?" + dadosForm(), true);
-			xhttp.send();
+			}
 			
+			xhttp.open("GET", "serveletLoginSenha?"+dadosForm()+"&pesquisarSenha" , true);
+			xhttp.send();
 			
 			}
 			
-		}
+		
 		
 	</script>
 </body>

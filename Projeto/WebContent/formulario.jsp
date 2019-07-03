@@ -131,9 +131,9 @@
 			<td>
 			<div id="msg"></div>
 				<button style="background: #DC143C" type="button"
-					class="btn text-white" onclick="novo();" >Novo</button>
+					class="btn text-white" onclick="novo();">Novo</button>
 				<button style="background: #48D1CC" type="button"
-					class="btn text-white" onclick="gravar();" disabled>Gravar</button>
+					class="btn text-white" onclick="gravar();">Gravar</button>
 					
 					
 
