@@ -189,25 +189,24 @@ public class Pessoa {
 			if (conexao != null) {
 				String sql = "update emails set" + 
 						" nome_completo=?   ,"+ 
-						" email=?          ,"+ 
 						" achou=?           ,"+
 						" silhouete=?    ,"+
 						" promocao=?     ,"+ 
 						" arq_gratuito=?     ,"+ 
 						" arq_pago=?   ,"+
 						" senha=?   "+
-						 "where email=?";
+						 "where cod=? ";
 				try {
 					PreparedStatement prepararSQL = conexao.prepareStatement(sql);
 
 					prepararSQL.setString(1, nome);
-					prepararSQL.setString(2, email);
-					prepararSQL.setString(3, achou);
-					prepararSQL.setString(4, silhouette);
-					prepararSQL.setString(5, promocao);
-					prepararSQL.setString(6, arqGratuito);
-					prepararSQL.setString(7, cursoPago);
-					prepararSQL.setString(8, senha);
+					prepararSQL.setString(2, achou);
+					prepararSQL.setString(3, silhouette);
+					prepararSQL.setString(4, promocao);
+					prepararSQL.setString(5, arqGratuito);
+					prepararSQL.setString(6, cursoPago);
+					prepararSQL.setString(7, senha);
+					prepararSQL.setInt(8, cod);
 					
 					prepararSQL.execute();
 					prepararSQL.close();
@@ -226,7 +225,7 @@ public class Pessoa {
 		public Pessoa getPessoa(String email) {
 			try {
 				Connection conexao = new ConectarJDBC().getConectar();
-				PreparedStatement ps = conexao.prepareStatement("select nome_completo,email from emails where email =?");
+				PreparedStatement ps = conexao.prepareStatement("select * from emails where email =?");
 				ps.setString(1, email);
 				
 				ResultSet rs = ps.executeQuery();
@@ -238,7 +237,13 @@ public class Pessoa {
 					
 					p.setNome(rs.getString("nome_completo"));
 					p.setEmail(rs.getString("email"));
-					
+					p.setSenha(rs.getString("senha"));
+					p.setAchou(rs.getString("achou"));
+					p.setArqGratuito(rs.getString("arq_gratuito"));
+					p.setCursoPago(rs.getString("arq_pago"));
+					p.setPromocao(rs.getString("promocao"));
+					p.setSilhouette(rs.getString("silhouette"));
+					p.setCod(rs.getInt("cod"));
 					
 
 				}

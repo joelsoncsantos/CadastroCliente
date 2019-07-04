@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import=" org.senai.projetoPagina.modelo.Pessoa" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -46,34 +47,38 @@
 <title>Editar - Detalhe Personalizados</title>
 </head>
 <body>
-<form name="formulario" >
-	
-		<div class="form-group col-md-6" >
+<%
+	Pessoa p = (Pessoa) session.getAttribute("pessoa-atual");
+
+%>
+	<form name="formulario">
+
+		<div class="form-group col-md-6">
 			<label id="labelNome">Nome:</label><br> <input type="text"
-				class="form-control"  placeholder="Nome Completo"
-				id="nome" name="nome" onblur="verificarNome();" required="required">
-				<div id="alert-nome"></div>
+				class="form-control" placeholder="Nome Completo" id="nome"
+				name="nome" onblur="verificarNome();" required="required"  value="<%out.print(p.getNome());%>">
+			<div id="alert-nome"></div>
 
 		</div>
-		<div class="form-group col-md-6" >
-		 
-			<label id="labelEmail" >Email:</label><br> <input
-				type="text" class="form-control" 
-				placeholder="Insira seu e-mail" name="email" onblur="checarEmail();" id="email" required="required">
-				<div id="alert-email" name="alert-email"></div>
-				
+		<div class="form-group col-md-6">
+
+			<label id="labelEmail">Email:</label><br> <input type="text"
+				class="form-control" placeholder="Insira seu e-mail" name="email"
+				onblur="checarEmail();" id="email" required="required" value="<%out.print(p.getEmail());%>">
+			<div id="alert-email" name="alert-email"></div>
+
 		</div>
 		<div class="form-group col-md-3">
 			<div>
 				<label id="labelSenha">Senha:</label><br> <input
 					type="password" class="form-control" id="senha"
-					placeholder="No mínimo 6 digitos" name="senha" required="required">
+					placeholder="Digite uma nova senha" name="senha" required="required" >
 			</div>
-			<div >
+			<div>
 				<label id="labelSenha">Confirmar senha:</label><br> <input
-					type="password" class="form-control" 
-					placeholder="No mínimo 6 digitos" name="confirmarSenha" id="confirmarSenha"
-					onblur="verificarSenha();">
+					type="password" class="form-control"
+					placeholder="No mínimo 6 digitos" name="confirmarSenha"
+					id="confirmarSenha" onblur="verificarSenha();">
 			</div>
 			<div id="alert-senha"></div>
 		</div>
@@ -82,9 +87,13 @@
 				class="form-control form-control" id="achou">
 				<option value="Sigo no Instagram">Sigo no Instagram</option>
 				<option value="Indicação de Amigos">Indicação de Amigos</option>
-				<option value="Pesquisando na internet">Pesquisando nainternet</option>
+				<option value="Pesquisando na internet">Pesquisando
+					nainternet</option>
 				<option value="Outros">Outros</option>
 			</select>
+			<script>
+				document.getElementById("achou").value="<%out.print(p.getAchou());%>";
+				</script>
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-3">
@@ -93,6 +102,9 @@
 					<option value="Sim">Sim</option>
 					<option value="Não">Não</option>
 				</select>
+				<script>
+				document.getElementById("silhouette").value="<%out.print(p.getSilhouette());%>";
+				</script>
 			</div>
 
 			<div class="form-group col-md-3">
@@ -102,6 +114,9 @@
 					<option value="Sim">Sim</option>
 					<option value="Não">Não</option>
 				</select>
+				<script>
+				document.getElementById("promocao").value="<%out.print(p.getPromocao());%>";
+				</script>
 
 			</div>
 		</div>
@@ -114,6 +129,9 @@
 					<option value="Sim">Sim</option>
 					<option value="Não">Não</option>
 				</select>
+				<script>
+				document.getElementById("arqGratuitos").value="<%out.print(p.getArqGratuito());%>";
+				</script>
 			</div>
 			<div class="form-group col-md-3">
 				<label id="labelCursosPagos">Tem interesse por cursos pagos?</label><br>
@@ -122,22 +140,25 @@
 					<option value="Sim">Sim</option>
 					<option value="Não">Não</option>
 				</select>
+				<script>
+				document.getElementById("cursosPagos").value="<%out.print(p.getCursoPago());%>";
+				</script>
 			</div>
 		</div>
 
-		
-			
-			<td>
-			<div id="msg"></div>
-				<button style="background: #DC143C" type="button"
-					class="btn text-white" onclick="editar();" >Editar</button>
-				<button style="background: #48D1CC" type="button"
-					class="btn text-white" >Cancelar</button>
-					
-					
 
-			</td>
-		
+
+		<td>
+			<div id="msg"></div>
+			<button style="background: #DC143C" type="button"
+				class="btn text-white" onclick="editar();">Atualizar</button>
+			<button style="background: #48D1CC" type="button"
+				class="btn text-white">Cancelar</button>
+
+
+
+		</td>
+
 
 
 	</form>
@@ -145,7 +166,7 @@
 
 
 
-<!-- JavaScript -->
+	<!-- JavaScript -->
 
 	<!-- Ordem obrigatÃ³ria: jQuery, Popper.js, Bootstrap.js, Script do desenvolvedor -->
 
@@ -169,6 +190,131 @@
 	<!-- Script do desenvolvedor -->
 	<script type="text/javascript">
 		/* Digite o seu script aqui */
-		</script>
+		function dadosForm() {
+			var dados = "";
+			dados += "nome=" + document.getElementById("nome").value;
+			dados += "&email=" + document.getElementById("email").value;
+			dados += "&achou=" + document.getElementById("achou").value;
+			dados += "&silhouette="
+					+ document.getElementById("silhouette").value;
+			dados += "&promocao=" + document.getElementById("promocao").value;
+			dados += "&arqGratuitos="
+					+ document.getElementById("arqGratuitos").value;
+			dados += "&cursosPagos="
+					+ document.getElementById("cursosPagos").value;
+			dados += "&senha=" + document.getElementById("senha").value;
+
+			return dados;
+		}
+
+		function editar() {
+
+			//alert(aux);
+			if (checarEmail() != false) {
+				//alert(checarEmail());
+				var xhttp = new XMLHttpRequest();
+
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						// Typical action to be performed when the document is ready:
+						var msg = xhttp.responseText;
+						document.getElementById("msg").innerHTML = msg;
+						//var msg = xhttp.responseText;
+						if (msg == 'true') {
+							document.getElementById("msg").innerHTML = "Atualizado com sucesso!";
+							document.getElementById("msg").style.color = "White";
+							document.getElementById("msg").style.background = "Black";
+
+						} else {
+							document.getElementById("msg").innerHTML = "Erro ao gravar";
+							document.getElementById("msg").style.background = "red";
+						}
+					}
+				};
+
+				xhttp.open("GET", "serveletEditar?" + dadosForm()+"&atualizar()", true);
+				xhttp.send();
+			}
+			return false;
+		}
+		
+		
+		
+		function checarEmail() {
+
+			if (document.forms[0].email.value.indexOf('@') == -1
+					|| document.forms[0].email.value.indexOf('.') == -1) {
+				//alert("Por favor, informe um E-MAIL válido ");
+				document.getElementById("alert-email").innerHTML = "Por favor forneça um email válido";
+				document.getElementById("alert-email").style.color = "red";
+
+				return false;
+
+			} else if(!document.getElementById("email").value){
+
+				var email = document.getElementById("email").value;
+
+				var xhttp = new XMLHttpRequest();
+
+				xhttp.onreadystatechange = function() {
+
+					if (this.readyState == 4 && this.status == 200) {
+						// Typical action to be performed when the document is ready:
+
+						var msg = xhttp.responseText;
+						//alert("Por favor, informe um E-MAIL válido 828");
+						if (msg == "true") {
+							//alert("Por favor, informe um E-MAIL válido 888");
+							document.getElementById("alert-email").innerHTML = 'Email já cadastrado';
+							document.getElementById("alert-email").style.color = "red";
+							return false;
+						} else {
+							//alert("Por favor, informe um E-MAIL válido 9999999");
+							document.getElementById("alert-email").innerHTML = '';
+							return true;
+						}
+
+					}
+				};
+				xhttp.open("GET", "serveletEmail?" + dadosForm()
+						+ "&pesquisarEmail", true);
+				xhttp.send();
+
+			}
+		}
+		
+		
+		
+		function verificarSenha() {
+
+			if (document.getElementById("senha").value != document
+					.getElementById("confirmarSenha").value) {
+
+				document.getElementById("alert-senha").innerHTML = "Senha não Confere";
+				document.getElementById("alert-senha").style.color = "red";
+				return false;
+			} else {
+				document.getElementById("alert-senha").innerHTML = "";
+				return true;
+			}
+
+		}
+		
+		
+		
+		function verificarNome() {
+			var nome2 = document.getElementById("nome").value;
+
+			if (nome2.length < 3) {
+				document.getElementById("alert-nome").innerHTML = "Insira o nome correto ";
+				document.getElementById("alert-nome").style.color = "red";
+				return false;
+			} else {
+				document.getElementById("alert-nome").innerHTML = "";
+
+				return true;
+			}
+		}
+	</script>
 </body>
 </html>
