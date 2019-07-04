@@ -145,6 +145,7 @@
 			xhttp.send();
 				
 		}
+			window.location.replace('index.jsp');
 		}
 		
 		function checarEmail() {
