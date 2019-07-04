@@ -34,7 +34,7 @@ public class ServeletEditar extends HttpServlet {
 		obj.setAchou(request.getParameter("achou"));
 		obj.setCursoPago(request.getParameter("cursosPagos"));
 		obj.setSenha(request.getParameter("senha"));
-		//obj.setCod(Integer.parseInt(request.getParameter("cod")));
+		obj.setCod(Integer.parseInt(request.getParameter("cod")));
 		
 		
 		sucesso = obj.atualizar();

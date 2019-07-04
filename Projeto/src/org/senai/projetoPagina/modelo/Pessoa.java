@@ -164,11 +164,11 @@ public class Pessoa {
 		public boolean apagar() {
 			Connection conexao = new ConectarJDBC().getConectar();
 			if (conexao != null) {
-				String sql = "delete from emails where email = ? ";
+				String sql = "delete from emails where cod = ? ";
 				try {
 					PreparedStatement prepararSQL = conexao.prepareStatement(sql);
 
-					prepararSQL.setString(1, email);
+					prepararSQL.setInt(1, cod);
 
 					prepararSQL.execute();
 					prepararSQL.close();
@@ -190,7 +190,7 @@ public class Pessoa {
 				String sql = "update emails set" + 
 						" nome_completo=?   ,"+ 
 						" achou=?           ,"+
-						" silhouete=?    ,"+
+						" silhouette=?    ,"+
 						" promocao=?     ,"+ 
 						" arq_gratuito=?     ,"+ 
 						" arq_pago=?   ,"+

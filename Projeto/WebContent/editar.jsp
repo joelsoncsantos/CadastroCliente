@@ -52,6 +52,7 @@
 
 %>
 	<form name="formulario">
+	<input type="hidden" value="<%out.print(p.getCod());%>" id="cod"/>
 
 		<div class="form-group col-md-6">
 			<label id="labelNome">Nome:</label><br> <input type="text"
@@ -152,8 +153,8 @@
 			<div id="msg"></div>
 			<button style="background: #DC143C" type="button"
 				class="btn text-white" onclick="editar();">Atualizar</button>
-			<button style="background: #48D1CC" type="button"
-				class="btn text-white">Cancelar</button>
+			<button style="background: 	#006400" type="button"
+					class="btn text-white" onclick="cancelar();">Cancelar</button>
 
 
 
@@ -193,7 +194,7 @@
 		function dadosForm() {
 			var dados = "";
 			dados += "nome=" + document.getElementById("nome").value;
-			dados += "&email=" + document.getElementById("email").value;
+			dados += "&cod=" + document.getElementById("cod").value;
 			dados += "&achou=" + document.getElementById("achou").value;
 			dados += "&silhouette="
 					+ document.getElementById("silhouette").value;
@@ -232,7 +233,7 @@
 					}
 				};
 
-				xhttp.open("GET", "serveletEditar?" + dadosForm()+"&atualizar()", true);
+				xhttp.open("GET", "serveletEditar?" + dadosForm()+"&atualizar", true);
 				xhttp.send();
 			}
 			return false;
@@ -314,6 +315,12 @@
 
 				return true;
 			}
+		}
+		
+		function cancelar() {
+			 
+			window.location.replace('index.jsp');
+
 		}
 	</script>
 </body>

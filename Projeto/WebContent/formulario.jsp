@@ -298,29 +298,7 @@
 			}
 			}
 			
-		function apagar(){
-			if(confirm("Realmente deseja apagar seu registro?")){
-			
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					// Typical action to be performed when the document is ready:
-					var msg = xhttp.responseText;
-					
-					if (msg == "Gravado com sucesso") {
-						document.getElementById("msg").className = "alert alert-info";
-						document.getElementById("msg").innerHTML = "Informação apagada";
-						document.getElementById("formulario").reset();
-					} else {
-						document.getElementById("msg").className = "alert alert-danger";
-						document.getElementById("msg").innerHTML = "Erro ao apagar";
-					}
-				}
-			};
-			xhttp.open("GET", "serveletEmail?" + dadosForm()+"&apagar", true);
-			xhttp.send();
-		}
-		}
+		
 		
 		
 	</script>

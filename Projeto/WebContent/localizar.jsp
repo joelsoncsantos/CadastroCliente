@@ -75,9 +75,8 @@
 			<td>
 				<div id="msg"></div>
 				
-				<button style="background: red" type="button"
-					class="btn text-white" onclick="excluir();">Deseja excluir</button>
-					<button style='background: #48D1CC' type='button' class='btn text-white' onclick='editar("+ p.getPessoa(email).getEmail()+ ");'>Deseja editar</button>
+				<button style="background: red" type="button" class="btn text-white" onclick='excluir("+ p.getPessoa(email).getEmail()+ ");'>Deseja excluir</button>
+				<button style='background: #48D1CC' type='button' class='btn text-white' onclick='editar("+ p.getPessoa(email).getEmail()+ ");'>Deseja editar</button>
 				
 
 
